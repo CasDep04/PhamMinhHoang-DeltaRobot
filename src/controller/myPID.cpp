@@ -10,10 +10,12 @@ float Kd = 0.05; // Derivative gain
 //motor1
 double setpoint = 200;  // Desired position or speed
 double current_position = 0;  // Current position or speed
+
 double previous_error = 0;
 double integral = 0;
+double speed =0;
 
-double calculatePID(double setpoint, double current_position) {
+void calculatePID() {
   // Calculate the error
   double error = setpoint - current_position;
 
@@ -32,6 +34,6 @@ double calculatePID(double setpoint, double current_position) {
   // Limit the output to the motor's PWM range (0-255)
   output = constrain(output, -255, 255);
 
-  return output;
+  speed = output;
 }
 

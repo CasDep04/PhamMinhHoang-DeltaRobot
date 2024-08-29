@@ -11,8 +11,9 @@ extern double setpoint;
 extern double current_position;
 extern double previous_error;
 extern double integral;
+extern double speed;
 
 // Declare the calculatePID function
-double calculatePID(double setpoint, double current_position);
+void calculatePID();
 
 #endif

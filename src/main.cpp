@@ -12,8 +12,8 @@ void setup() {
 }
 
 void loop() {
-  double output = calculatePID(setpoint, current_position);
-  runMotor1(output);
+  calculatePID();
+  runMotor1(speed);
 
   // Use the new serial debugging function
   printDebugInfo(setpoint, current_position);
