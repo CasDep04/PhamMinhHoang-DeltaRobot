@@ -5,6 +5,7 @@
 extern const int motorPinA;
 extern const int motorPinB;
 
+//motor2
 extern const int motorPinA2;
 extern const int motorPinB2;
 
@@ -13,6 +14,7 @@ void motor_init();
 // Function prototypes
 void runMotor1(double output);
 
+//motor2
 void runMotor2(double output);
 
 #endif

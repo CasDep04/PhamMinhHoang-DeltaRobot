@@ -18,4 +18,5 @@ void loop() {
 
   // Use the new serial debugging function
   printDebugInfo(setpoint, current_position);
+  printDebugInfo2(setpoint, current_position2);
 }

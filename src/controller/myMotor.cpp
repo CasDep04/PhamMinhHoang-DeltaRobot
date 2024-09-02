@@ -32,6 +32,7 @@ void runMotor1(double output) {
   delay(10);
 }
 
+//motor2
 void runMotor2(double output) {
   // Apply the output to the motor
   if (output > 0) {

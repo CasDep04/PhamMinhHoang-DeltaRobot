@@ -15,6 +15,9 @@ double previous_error = 0;
 double integral = 0;
 double speed =0;
 
+//motor2
+double current_position2 = 0;
+
 void calculatePID() {
   // Calculate the error
   double error = setpoint - current_position;
