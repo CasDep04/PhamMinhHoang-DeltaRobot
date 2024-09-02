@@ -16,8 +16,14 @@ extern double integral;
 extern double speed;
 
 //motor2
+extern double setpoint2;
 extern double current_position2;
+
+extern double previous_error2;
+extern double integral2;
+extern double speed2;
 // Declare the calculatePID function
 void calculatePID();
 
+void calculatePID2();
 #endif

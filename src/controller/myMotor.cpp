@@ -12,8 +12,8 @@ void motor_init(){
   pinMode(motorPinA, OUTPUT);
   pinMode(motorPinB, OUTPUT);
 
-  pinMode(motorPinA, OUTPUT);
-  pinMode(motorPinB, OUTPUT);
+  pinMode(motorPinA2, OUTPUT);
+  pinMode(motorPinB2, OUTPUT);
 }
 
 void runMotor1(double output) {
