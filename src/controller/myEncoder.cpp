@@ -3,8 +3,8 @@
 
 // Define encoder pins
 //motor1
-const int encoderPinA = 4;  // Yellow wire
-const int encoderPinB = 16; // Green wire
+const int encoderPinA = 22;  // Yellow wire
+const int encoderPinB = 23; // Green wire
 
 
 // Declare the current position variable (shared with myPID)

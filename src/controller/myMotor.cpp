@@ -2,8 +2,8 @@
 #include <Arduino.h>
 
 // Define motor control pins for motor 1
-const int motorPinA = 17; // LPWM, clockwise
-const int motorPinB = 18; // RPWM, counter-clockwise
+const int motorPinA = 19; // LPWM, clockwise
+const int motorPinB = 21; // RPWM, counter-clockwise
 
 void motor_init(){
   pinMode(motorPinA, OUTPUT);

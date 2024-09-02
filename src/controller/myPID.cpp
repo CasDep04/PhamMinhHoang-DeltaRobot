@@ -1,6 +1,9 @@
 #include "./header/myPID.h"
 #include <Arduino.h>
 
+//float Kp = 1.0;  // Proportional gain
+//float Ki = 0.1;  // Integral gain
+//float Kd = 0.05; // Derivative gain
 // Define PID constants
 float Kp = 1.0;  // Proportional gain
 float Ki = 0.1;  // Integral gain
