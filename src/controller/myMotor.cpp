@@ -5,10 +5,15 @@
 const int motorPinA = 17; // LPWM, clockwise
 const int motorPinB = 18; // RPWM, counter-clockwise
 
+const int motorPinA2 = 19; // LPWM, clockwise
+const int motorPinB2 = 21; // RPWM, counter-clockwise
+
 void motor_init(){
   pinMode(motorPinA, OUTPUT);
   pinMode(motorPinB, OUTPUT);
 
+  pinMode(motorPinA, OUTPUT);
+  pinMode(motorPinB, OUTPUT);
 }
 
 void runMotor1(double output) {
@@ -27,4 +32,19 @@ void runMotor1(double output) {
   delay(10);
 }
 
+void runMotor2(double output) {
+  // Apply the output to the motor
+  if (output > 0) {
+    // Rotate clockwise
+    analogWrite(motorPinA2, output);
+    analogWrite(motorPinB2, 0);
+  } else {
+    // Rotate counter-clockwise
+    analogWrite(motorPinA2, 0);
+    analogWrite(motorPinB2, -output);
+  }
+
+  // Small delay to stabilize the loop
+  delay(10);
+}
 
