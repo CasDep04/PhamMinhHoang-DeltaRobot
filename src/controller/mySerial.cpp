@@ -22,3 +22,12 @@ void printDebugInfo2(double setpoint, double current_position) {
   Serial.print(">Current Position 2:");
   Serial.println(current_position);
 }
+
+void printDebugInfo3(double setpoint, double current_position) {
+  // Debugging output
+  Serial.print(">Target Position 3:");
+  Serial.println(setpoint);
+
+  Serial.print(">Current Position 3:");
+  Serial.println(current_position);
+}

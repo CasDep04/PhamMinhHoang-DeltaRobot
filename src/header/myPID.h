@@ -22,6 +22,10 @@ extern double current_position2;
 extern double previous_error2;
 extern double integral2;
 extern double speed2;
+
+//motor3
+extern double current_position3;
+
 // Declare the calculatePID function
 void calculatePID();
 

@@ -17,8 +17,10 @@ void loop() {
 
   runMotor1(speed); 
   runMotor2(speed2);
+  runMotor3(speed);
 
   // Use the new serial debugging function
   printDebugInfo(setpoint, current_position);
-  printDebugInfo2(setpoint, current_position2);
+  printDebugInfo2(setpoint2, current_position2);
+  printDebugInfo3(setpoint, current_position3);
 }
