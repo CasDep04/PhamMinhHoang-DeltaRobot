@@ -14,13 +14,14 @@ void setup() {
 void loop() {
   calculatePID();
   calculatePID2();
+  calculatePID3();
 
   runMotor1(speed); 
   runMotor2(speed2);
-  runMotor3(speed);
+  runMotor3(speed3);
 
   // Use the new serial debugging function
   printDebugInfo(setpoint, current_position);
   printDebugInfo2(setpoint2, current_position2);
-  printDebugInfo3(setpoint, current_position3);
+  printDebugInfo3(setpoint3, current_position3);
 }

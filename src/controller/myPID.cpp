@@ -24,7 +24,12 @@ double integral2 = 0;
 double speed2 =0;
 
 //motor3
+double setpoint3 = 200;
 double current_position3 = 0;
+
+double previous_error3 = 0;
+double integral3 = 0;
+double speed3 =0;
 
 void calculatePID() {
   // Calculate the error
@@ -68,4 +73,26 @@ void calculatePID2() {
   output2 = constrain(output2, -255, 255);
 
   speed2 = output2;
+}
+
+void calculatePID3(){
+    // Calculate the error
+  double error3 = setpoint3 - current_position3;
+
+  // Calculate the integral
+  integral3 += error3;
+
+  // Calculate the derivative
+  double derivative3 = error3 - previous_error3;
+
+  // Calculate the PID output
+  double output3 = Kp * error3 + Ki * integral3 + Kd * derivative3;
+
+  // Store the current error as previous error for the next loop
+  previous_error3 = error3;
+
+  // Limit the output to the motor's PWM range (0-255)
+  output3 = constrain(output3, -255, 255);
+
+  speed3 = output3;
 }
