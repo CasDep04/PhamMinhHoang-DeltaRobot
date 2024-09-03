@@ -23,4 +23,8 @@ void runMotor2(double output);
 
 //motor3
 void runMotor3(double output);
+
+void runMotor1PID();
+void runMotor2PID();
+void runMotor3PID();
 #endif

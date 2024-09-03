@@ -8,28 +8,28 @@ float Kd = 0.05; // Derivative gain
 
 // Define PID variables
 //motor1
-double setpoint = 200;  // Desired position or speed
-double current_position = 0;  // Current position or speed
+double volatile setpoint = 200;  // Desired position or speed
+double volatile current_position = 0;  // Current position or speed
 
-double previous_error = 0;
-double integral = 0;
-double speed =0;
+double volatile previous_error = 0;
+double volatile integral = 0;
+double volatile speed =0;
 
 //motor2
-double setpoint2 = 200;
-double current_position2 = 0;
+double volatile setpoint2 = 200;
+double volatile current_position2 = 0;
 
-double previous_error2 = 0;
-double integral2 = 0;
-double speed2 =0;
+double volatile previous_error2 = 0;
+double volatile integral2 = 0;
+double volatile speed2 =0;
 
 //motor3
-double setpoint3 = 200;
-double current_position3 = 0;
+double volatile setpoint3 = 200;
+double volatile current_position3 = 0;
 
-double previous_error3 = 0;
-double integral3 = 0;
-double speed3 =0;
+double volatile previous_error3 = 0;
+double volatile integral3 = 0;
+double volatile speed3 =0;
 
 void calculatePID() {
   // Calculate the error

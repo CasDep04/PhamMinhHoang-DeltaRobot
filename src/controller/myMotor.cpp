@@ -1,4 +1,5 @@
 #include "./header/myMotor.h"
+#include "./header/myPID.h"
 #include <Arduino.h>
 
 // Define motor control pins for motor 1
@@ -71,4 +72,19 @@ void runMotor3(double output) {
 
   // Small delay to stabilize the loop
   delay(10);
+}
+
+void runMotor1PID(){
+  calculatePID();
+  runMotor1(speed);
+}
+
+void runMotor2PID(){
+  calculatePID2();
+  runMotor2(speed2);
+}
+
+void runMotor3PID(){
+  calculatePID3();
+  runMotor3(speed3);
 }

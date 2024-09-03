@@ -16,7 +16,7 @@ const int encoderPinB3 = 32; // Green wire
 
 // Declare the current position variable (shared with myPID)
 //motor1
-extern double current_position;
+extern volatile double current_position;
 extern double current_position2;
 extern double current_position3;
 

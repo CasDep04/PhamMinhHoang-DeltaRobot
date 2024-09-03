@@ -8,28 +8,28 @@ extern float Kd;
 
 // Declare PID variables
 //motor1
-extern double setpoint;
-extern double current_position;
+extern volatile double setpoint;
+extern volatile double current_position;
 
-extern double previous_error;
-extern double integral;
-extern double speed;
+extern volatile double previous_error;
+extern volatile double integral;
+extern volatile double speed;
 
 //motor2
-extern double setpoint2;
-extern double current_position2;
+extern volatile double setpoint2;
+extern volatile double current_position2;
 
-extern double previous_error2;
-extern double integral2;
-extern double speed2;
+extern volatile double previous_error2;
+extern volatile double integral2;
+extern volatile double speed2;
 
 //motor3
-extern double setpoint3;
-extern double current_position3;
+extern volatile double setpoint3;
+extern volatile double current_position3;
 
-extern double previous_error3;
-extern double integral3;
-extern double speed3;
+extern volatile double previous_error3;
+extern volatile double integral3;
+extern volatile double speed3;
 
 // Declare the calculatePID function
 void calculatePID();
