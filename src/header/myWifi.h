@@ -5,10 +5,11 @@
 #include <WebServer.h>
 
 // Replace with your network credentials
-extern const char* ssid;
-extern const char* password;
+extern String ssid;
+extern String password;
 extern WebServer server;
 
+void readConfig();
 void initWebApp();
 void handleClient();
 void handleRoot();
