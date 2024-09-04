@@ -12,8 +12,12 @@ extern WebServer server;
 void readConfig();
 void initWebApp();
 void handleClient();
+
 void handleRoot();
 void handleNotFound();
 
+void handleSlider();
+void handleJoystick();
+void handleJoyScript();
 
 #endif

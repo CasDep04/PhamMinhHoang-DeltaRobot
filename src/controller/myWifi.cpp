@@ -1,30 +1,38 @@
 #include "./header/myWifi.h"
 #include <WiFi.h>
 #include <WebServer.h>
+#include "./header/myVariables.h"
 #include "SPIFFS.h"
 
-String ssid ;
-String password ;
+String ssid;
+String password;
 WebServer server(80);
 
-void readConfig() {
-    if (!SPIFFS.begin(true)) {
+void readConfig()
+{
+    if (!SPIFFS.begin(true))
+    {
         Serial.println("An Error has occurred while mounting SPIFFS");
         return;
     }
 
     File file = SPIFFS.open("/config.txt", "r");
-    if (!file) {
+    if (!file)
+    {
         Serial.println("Failed to open config file");
         return;
     }
 
-    while (file.available()) {
+    while (file.available())
+    {
         String line = file.readStringUntil('\n');
         line.trim(); // Remove any whitespace/newline characters
-        if (line.startsWith("SSID=")) {
+        if (line.startsWith("SSID="))
+        {
             ssid = line.substring(5);
-        } else if (line.startsWith("PASSWORD=")) {
+        }
+        else if (line.startsWith("PASSWORD="))
+        {
             password = line.substring(9);
         }
     }
@@ -58,22 +66,9 @@ void initWebApp() {
 
     // Set up server routes
     server.on("/", handleRoot);
-    server.on("/slider", []() {
-        String sliderValue = server.arg("value");
-        Serial.print("Slider Value: ");
-        Serial.println(sliderValue);
-        server.send(200, "text/plain", "Slider value received");
-    });
-    
-    server.on("/joystick", []() {
-        String xValue = server.arg("x");
-        String yValue = server.arg("y");
-        Serial.print("Joystick X: ");
-        Serial.print(xValue);
-        Serial.print(" Y: ");
-        Serial.println(yValue);
-        server.send(200, "text/plain", "Joystick values received");
-    });
+    server.on("/joystick", handleJoystick);  // Handle joystick values
+    server.on("/slider", handleSlider);  // Handle slider values
+    server.on("/joy.js", HTTP_GET, handleJoyScript);  // Serve the joystick JavaScript file
 
     server.onNotFound(handleNotFound);
 
@@ -82,77 +77,93 @@ void initWebApp() {
     Serial.println("Server started");
 }
 
-void handleClient() {
+
+
+
+void handleClient()
+{
     server.handleClient();
 }
 
 void handleRoot() {
-    String html = "<!DOCTYPE html><html><head><title>ESP32 Control</title>";
+    String html = "<!DOCTYPE html><html><head><title>ESP32 Control</title></head>";
     html += "<style>";
-    html += "body { font-family: Arial; text-align: center; margin-top: 50px; }";
-    html += ".slider-container { width: 80%; margin: auto; }";
-    html += "#joystick-container { width: 80%; margin: auto; }";
-    html += ".slider { width: 100%; }";
-    html += "#joystick { height: 200px; width: 200px; background-color: lightgray; border-radius: 50%; position: relative; }";
-    html += "#knob { height: 50px; width: 50px; background-color: darkgray; border-radius: 50%; position: absolute; top: 75px; left: 75px; }";
+    html += "body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }";
+    html += ".container { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }";
+    html += ".header { font-size: 24px; margin-bottom: 40px; }";  // Header styling
+    html += ".joystick-container { margin-bottom: 20px; }";  // Space between joystick and slider
+    html += ".slider-container { margin-top: 20px; width: 50%; display: flex; flex-direction: column; align-items: center; }";  // Center slider
     html += "</style>";
+    html += "<script src=\"/joy.js\"></script>";  // Load the joystick JavaScript file
     html += "</head><body>";
-
-    html += "<h1>ESP32 Slider and Joystick Control</h1>";
-
-    // Slider
+    html += "<div class='container'>";
+    html += "<div class='header'>ESP32 Controls</div>";  // ESP32 Controls header
     html += "<div class='slider-container'>";
-    html += "<label for='slider'>Slider Value:</label>";
-    html += "<input type='range' min='0' max='100' value='50' class='slider' id='slider'>";
-    html += "<p>Value: <span id='sliderValue'>50</span></p>";
+    html += "<p>Adjustable Slider</p>";
+    html += "<input type='range' min='0' max='100' value='50' id='slider' oninput='updateSliderValue(this.value)'/>";
+    html += "<p>Slider Value: <span id='sliderValue'>50</span></p>";
     html += "</div>";
-
-    // Joystick
-    html += "<div id='joystick-container'>";
-    html += "<div id='joystick'><div id='knob'></div></div>";
-    html += "<p>Joystick X: <span id='joystickX'>0</span> Y: <span id='joystickY'>0</span></p>";
+    html += "<div class='joystick-container'>";
+    html += "<div id='joy1Div' style='width:200px;height:200px;margin:50px'></div>";
+    html += "<p>Joystick X: <input id='joyX' type='text' /></p>";
+    html += "<p>Joystick Y: <input id='joyY' type='text' /></p>";
     html += "</div>";
-
-    // JavaScript for Slider and Joystick
+    html += "</div>";
     html += "<script>";
-    // Slider logic
-    html += "var slider = document.getElementById('slider');";
-    html += "var sliderValue = document.getElementById('sliderValue');";
-    html += "slider.oninput = function() { sliderValue.innerHTML = this.value; sendSliderValue(this.value); };";
-    html += "function sendSliderValue(value) { fetch('/slider?value=' + value); }";
-
-    // Joystick logic
-    html += "var knob = document.getElementById('knob');";
-    html += "var joystickX = document.getElementById('joystickX');";
-    html += "var joystickY = document.getElementById('joystickY');";
-    html += "var joystickContainer = document.getElementById('joystick');";
-    html += "var dragging = false;";
-    html += "joystickContainer.addEventListener('mousedown', function(event) { dragging = true; });";
-    html += "document.addEventListener('mouseup', function() { dragging = false; });";
-    html += "document.addEventListener('mousemove', function(event) {";
-    html += "if (dragging) {";
-    html += "var rect = joystickContainer.getBoundingClientRect();";
-    html += "var x = event.clientX - rect.left - knob.offsetWidth / 2;";
-    html += "var y = event.clientY - rect.top - knob.offsetHeight / 2;";
-    html += "x = Math.max(0, Math.min(x, joystickContainer.offsetWidth - knob.offsetWidth));";
-    html += "y = Math.max(0, Math.min(y, joystickContainer.offsetHeight - knob.offsetHeight));";
-    html += "knob.style.left = x + 'px';";
-    html += "knob.style.top = y + 'px';";
-    html += "joystickX.innerHTML = x;";
-    html += "joystickY.innerHTML = y;";
-    html += "sendJoystickValues(x, y);";
-    html += "}});";
-    html += "function sendJoystickValues(x, y) { fetch('/joystick?x=' + x + '&y=' + y); }";
+    // Joystick JavaScript
+    html += "var joyX = document.getElementById('joyX');";
+    html += "var joyY = document.getElementById('joyY');";
+    html += "var Joy1 = new JoyStick('joy1Div', {}, function(stickData) {";
+    html += "joyX.value = stickData.x;";
+    html += "joyY.value = stickData.y;";
+    html += "fetch('/joystick?x=' + stickData.x + '&y=' + stickData.y);";  // Send joystick data to ESP32
+    html += "});";
+    // Slider JavaScript
+    html += "function updateSliderValue(value) {";
+    html += "  document.getElementById('sliderValue').innerText = value;";
+    html += "  fetch('/slider?value=' + value);";  // Send slider value to ESP32
+    html += "}";
     html += "</script>";
-
     html += "</body></html>";
-
     server.send(200, "text/html", html);
 }
 
 
-void handleNotFound() {
+void handleNotFound()
+{
     server.send(404, "text/plain", "404: Not Found");
 }
 
+void handleJoystick() {
+    if (server.hasArg("x") && server.hasArg("y")) {
+        joystickX = server.arg("x").toInt();  // Update the X variable
+        joystickY = server.arg("y").toInt();  // Update the Y variable
+        Serial.print("Joystick X: ");
+        Serial.print(joystickX);
+        Serial.print(" | Joystick Y: ");
+        Serial.println(joystickY);
+    }
+    server.send(200, "text/plain", "Joystick values updated");
+}
 
+void handleSlider() {
+    if (server.hasArg("value")) {
+        int sliderValue = server.arg("value").toInt();  // Update slider value
+        Serial.print("Slider Value: ");
+        Serial.println(sliderValue);
+    }
+    server.send(200, "text/plain", "Slider value updated");
+}
+
+void handleJoyScript() {
+    // Open the 'joy.js' file stored in SPIFFS
+    File file = SPIFFS.open("/joy.js", "r");
+    if (!file) {
+        // If the file doesn't exist, send a 404 error
+        server.send(404, "text/plain", "File not found");
+        return;
+    }
+    // Stream the file content to the client with the correct MIME type
+    server.streamFile(file, "application/javascript");
+    file.close();  // Close the file after serving it
+}
