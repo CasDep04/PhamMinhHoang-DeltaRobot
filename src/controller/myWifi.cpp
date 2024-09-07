@@ -3,7 +3,9 @@
 #include <WebServer.h>
 #include "./header/myVariables.h"
 #include "SPIFFS.h"
+#include <esp_wpa2.h>
 
+String identity;
 String ssid;
 String password;
 WebServer server(80);
@@ -40,7 +42,7 @@ void readConfig()
     file.close();
 }
 
-void initWebApp() {
+void webApp_init() {
     readConfig();
 
     if (ssid.isEmpty() || password.isEmpty()) {
@@ -77,7 +79,76 @@ void initWebApp() {
     Serial.println("Server started");
 }
 
+void readConfigWPA() {
+    if (!SPIFFS.begin(true)) {
+        Serial.println("An Error has occurred while mounting SPIFFS");
+        return;
+    }
 
+    File file = SPIFFS.open("/configWPA.txt", "r");
+    if (!file) {
+        Serial.println("Failed to open WPA config file");
+        return;
+    }
+
+    while (file.available()) {
+        String line = file.readStringUntil('\n');
+        line.trim();  // Remove any whitespace/newline characters
+        if (line.startsWith("SSID=")) {
+            ssid = line.substring(5);
+        } else if (line.startsWith("IDENTITY=")) {
+            identity = line.substring(9);
+        } else if (line.startsWith("PASSWORD=")) {
+            password = line.substring(9);
+        }
+    }
+
+    file.close();
+}
+
+void webAppWPA_init() {
+    readConfigWPA();
+
+    if (ssid.isEmpty() || password.isEmpty() || identity.isEmpty()) {
+        Serial.println("SSID, Identity, or Password not set in WPA config file");
+        return;
+    }
+
+    // WPA2-Enterprise settings
+    WiFi.disconnect(true);  // Disconnect before setting up WPA2-Enterprise
+
+    // Set WPA2-Enterprise credentials
+    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)identity.c_str(), identity.length());
+    esp_wifi_sta_wpa2_ent_set_username((uint8_t *)identity.c_str(), identity.length());
+    esp_wifi_sta_wpa2_ent_set_password((uint8_t *)password.c_str(), password.length());
+    esp_wifi_sta_wpa2_ent_enable();  // Enable WPA2-Enterprise mode
+
+    Serial.print("Connecting to ");
+    Serial.println(ssid);
+
+    WiFi.begin(ssid.c_str());
+
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.print("Connecting...\n");
+    }
+
+    Serial.println("WiFi connected.");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
+
+    // Set up server routes
+    server.on("/", handleRoot);
+    server.on("/joystick", handleJoystick);  // Handle joystick values
+    server.on("/slider", handleSlider);  // Handle slider values
+    server.on("/joy.js", HTTP_GET, handleJoyScript);  // Serve the joystick JavaScript file
+
+    server.onNotFound(handleNotFound);
+
+    // Start the server
+    server.begin();
+    Serial.println("Server started");
+}
 
 
 void handleClient()

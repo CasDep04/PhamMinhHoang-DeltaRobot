@@ -5,12 +5,17 @@
 #include <WebServer.h>
 
 // Replace with your network credentials
+extern String identity;
 extern String ssid;
 extern String password;
 extern WebServer server;
 
 void readConfig();
-void initWebApp();
+void webApp_init();
+
+void readConfigWPA();
+void webAppWPA_init();
+
 void handleClient();
 
 void handleRoot();

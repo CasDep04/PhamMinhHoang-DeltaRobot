@@ -10,7 +10,7 @@ void setup() {
   serial_innit();
   motor_init();
   encoder_init();
-  //initWebApp();
+  //webApp_init();
 }
 
 void loop() {
