@@ -96,3 +96,31 @@ void calculatePID3(){
 
   speed3 = output3;
 }
+
+void updateSetPoint(int isLeft, double degree){
+  double tempEncoder = (330 * degree) / 360;
+  if(isLeft == 1){
+    setpoint = setpoint + tempEncoder;
+  }else{
+    setpoint = setpoint - tempEncoder;
+  }
+};
+
+
+void updateSetPoint2(int isLeft, double degree){
+  double tempEncoder = (330 * degree) / 360;
+  if(isLeft == 1){
+    setpoint2 = setpoint2 + tempEncoder;
+  }else{
+    setpoint2 = setpoint2 - tempEncoder;
+  }
+};
+
+void updateSetPoint3(int isLeft, double degree){
+  double tempEncoder = (330 * degree) / 360;
+  if(isLeft == 1){
+    setpoint3 = setpoint3 + tempEncoder;
+  }else{
+    setpoint3 = setpoint3 - tempEncoder;
+  }
+};

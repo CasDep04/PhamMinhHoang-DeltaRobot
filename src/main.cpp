@@ -8,9 +8,9 @@
 void setup() {
 
   serial_innit();
-  //motor_init();
-  //encoder_init();
-  initWebApp();
+  motor_init();
+  encoder_init();
+  //initWebApp();
 }
 
 void loop() {
@@ -18,8 +18,8 @@ void loop() {
   //runMotor2PID();
   //runMotor3PID();
 
-  handleClient();
-
+  //handleClient();
+  runMotor1(-100);
 
   // Use the new serial debugging function
   //printDebugInfo(setpoint, current_position);

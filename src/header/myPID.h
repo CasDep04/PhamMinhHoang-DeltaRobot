@@ -37,4 +37,8 @@ void calculatePID();
 void calculatePID2();
 
 void calculatePID3();
+
+void updateSetPoint(int isLeft, double degree);
+void updateSetPoint2(int isLeft, double degree);
+void updateSetPoint3(int isLeft, double degree);
 #endif
