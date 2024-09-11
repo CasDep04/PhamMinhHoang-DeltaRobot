@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 unsigned long Serial_time = 0; // time in us
-extern double th1_ref ;
+extern double setpointMotor1 ;
 // ====================================================================================
 void Init_Serial()
 {
@@ -20,19 +20,19 @@ void SerialDataPrint()
     Serial.print(",");
     Serial.print(MOT1_cmd);
     Serial.print(",");
-    Serial.print(th1_ref);
+    Serial.print(setpointMotor1);
     Serial.print(",");
-    Serial.print(th1);
+    Serial.print(encoderDegree1);
     Serial.println();
 
     // For Teleplot
     // Serial.println(Serial_time / 10000);
     // Serial.print(">MOT1_cmd:");
     // Serial.println(MOT1_cmd);
-    // Serial.print(">th1:");
-    // Serial.println(th1);
-    // Serial.print(">th1_ref:");
-    // Serial.println(th1_ref);
+    // Serial.print(">encoderDegree1:");
+    // Serial.println(encoderDegree1);
+    // Serial.print(">setpointMotor1:");
+    // Serial.println(setpointMotor1);
     // Serial.print(">kp:");
     // Serial.println(kp);
     // Serial.print(">ki:");
@@ -55,7 +55,7 @@ void SerialDataWrite()
       {
       case 'a':
         received_chars.remove(0, 1);
-        th1_ref = received_chars.toFloat();
+        setpointMotor1 = received_chars.toFloat();
         break;
       case 'q':
         received_chars.remove(0, 1);
