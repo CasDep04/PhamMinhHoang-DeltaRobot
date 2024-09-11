@@ -1,44 +1,27 @@
-#ifndef MYPID_H
-#define MYPID_H
+#include <Arduino.h>
+#include <PID_v1.h>
 
-// Declare PID constants
-extern float Kp;
-extern float Ki;
-extern float Kd;
+double th1_ref = 350; 
+//double kp = 10.0, ki = 5.0, kd = 0.05;
+double kp = 10, ki = 5.0, kd = 0.05;
 
-// Declare PID variables
-//motor1
-extern volatile double setpoint;
-extern volatile double current_position;
 
-extern volatile double previous_error;
-extern volatile double integral;
-extern volatile double speed;
+// Input, output, reference
+PID MOT1_PID(&th1, &MOT1_cmd, &th1_ref, kp, ki, kd, DIRECT);
 
-//motor2
-extern volatile double setpoint2;
-extern volatile double current_position2;
-
-extern volatile double previous_error2;
-extern volatile double integral2;
-extern volatile double speed2;
-
-//motor3
-extern volatile double setpoint3;
-extern volatile double current_position3;
-
-extern volatile double previous_error3;
-extern volatile double integral3;
-extern volatile double speed3;
-
-// Declare the calculatePID function
-void calculatePID();
-
-void calculatePID2();
-
-void calculatePID3();
-
-void updateSetPoint(int isLeft, double degree);
-void updateSetPoint2(int isLeft, double degree);
-void updateSetPoint3(int isLeft, double degree);
-#endif
+// ================================================================
+// Function Definition
+// ================================================================
+void Init_PID()
+{
+  MOT1_PID.SetMode(AUTOMATIC);
+  MOT1_PID.SetOutputLimits(-255, 255);
+  MOT1_PID.SetSampleTime(10);
+}
+// ================================================================
+void Compute_PID()
+{
+  MOT1_PID.SetTunings(kp, ki, kd);
+  MOT1_PID.Compute();
+}
+// ================================================================

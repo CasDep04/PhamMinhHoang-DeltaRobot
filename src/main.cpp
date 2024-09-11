@@ -1,28 +1,22 @@
 #include <Arduino.h>
-#include "./header/myPID.h"  // Include the PID header
-#include "./header/myMotor.h"  // Include the Motor control header
-#include "./header/myEncoder.h"  // Include the Encoder handling header
-#include "./header/mySerial.h"  // Include the Serial handling header
-#include "./header/myWifi.h"  // Include the Serial handling header
+#include "./header/MyMotor.h" 
+#include "./header/MyEncoder.h"
+#include "./header/MyPID.h"
+#include "./header/MySerial.h"
 
-void setup() {
-
-  serial_innit();
-  motor_init();
-  encoder_init();
-  //webApp_init();
+void setup()
+{
+  Init_Motor();
+  Init_Encoder();
+  Init_PID();
+  Init_Serial();
 }
 
-void loop() {
-  //runMotor1PID();
-  //runMotor2PID();
-  //runMotor3PID();
-
-  //handleClient();
-  runMotor1(-100);
-
-  // Use the new serial debugging function
-  //printDebugInfo(setpoint, current_position);
-  //printDebugInfo2(setpoint2, current_position2);
-  //printDebugInfo3(setpoint3, current_position3);
+void loop()
+{
+  Get_Angle();
+  Compute_PID(); 
+  Run_Motor();
+  SerialDataPrint();
+  SerialDataWrite();
 }

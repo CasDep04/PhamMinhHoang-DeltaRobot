@@ -1,30 +1,45 @@
-#ifndef MYMOTOR_H
-#define MYMOTOR_H
+#include <Arduino.h>
 
-// Motor control pins for motor 1
-extern const int motorPinA;
-extern const int motorPinB;
+#define MOT1_A 18 // MOT 1A
+#define MOT1_B 17 // MOT 1B
 
-//motor2
-extern const int motorPinA2;
-extern const int motorPinB2;
+#define MOT1_Channel 0 // MOT 1 channel
 
-//motor3
-extern const int motorPinA3;
-extern const int motorPinB3;
+#define PWM_FREQ 10000 // PWM Frequency: 10kHz
+#define PWM_RES 8      // PWM resolution 255
 
-//initailize
-void motor_init();
-// Function prototypes
-void runMotor1(double output);
+double MOT1_cmd = 25; // MOT1 command [-255; 255]
 
-//motor2
-void runMotor2(double output);
+//============================================================
+void Init_Motor()
+{
+    pinMode(MOT1_A, OUTPUT);
+    pinMode(MOT1_B, OUTPUT);
+    ledcSetup(MOT1_Channel, PWM_FREQ, PWM_RES);
+}
+//============================================================
+void Send_PWM(int PINA, int PINB, double mot_cmd, int channel)
+{
+    // Reverse direction, if the mot_cmd is from [-255; 0]
+    if (mot_cmd < 0)
+    {
+        ledcAttachPin(PINB, channel);
+        ledcDetachPin(PINA);
+        digitalWrite(PINA, LOW);
+        ledcWrite(channel, abs(mot_cmd));
+    }
+    // Forward direction, if the mot_cmd is from [0; 255]; 
+    else 
+    {
+        ledcAttachPin(PINA, channel);
+        ledcDetachPin(PINB);
+        digitalWrite(PINB, LOW);
+        ledcWrite(channel, abs(mot_cmd));
+    }
+}
 
-//motor3
-void runMotor3(double output);
-
-void runMotor1PID();
-void runMotor2PID();
-void runMotor3PID();
-#endif
+//============================================================
+void Run_Motor()
+{
+    Send_PWM(MOT1_A, MOT1_B, MOT1_cmd, MOT1_Channel);
+}
