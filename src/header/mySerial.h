@@ -17,22 +17,22 @@ void SerialDataPrint()
     Serial_time = micros();
     // For MATLAB
     Serial.print(Serial_time / 10000);
-    Serial.print(",");
-    Serial.print(MOT1_cmd);
-    Serial.print(",");
-    Serial.print(setpointMotor1);
-    Serial.print(",");
-    Serial.print(encoderDegree1);
-    Serial.println();
+    //Serial.print(",");
+    //Serial.print(MOT1_cmd);
+    //Serial.print(",");
+    //Serial.print(setpointMotor1);
+    //Serial.print(",");
+    //Serial.print(encoderDegree1);
+    //Serial.println();
 
     // For Teleplot
     // Serial.println(Serial_time / 10000);
-    // Serial.print(">MOT1_cmd:");
-    // Serial.println(MOT1_cmd);
-    // Serial.print(">encoderDegree1:");
-    // Serial.println(encoderDegree1);
-    // Serial.print(">setpointMotor1:");
-    // Serial.println(setpointMotor1);
+     Serial.print(">MOT1_cmd:");
+     Serial.println(MOT1_cmd);
+     Serial.print(">encoderDegree1:");
+     Serial.println(encoderDegree1);
+     Serial.print(">setpointMotor1:");
+     Serial.println(setpointMotor1);
     // Serial.print(">kp:");
     // Serial.println(kp);
     // Serial.print(">ki:");

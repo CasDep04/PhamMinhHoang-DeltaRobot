@@ -1,7 +1,7 @@
-#include "./header/myWifi.h"
+#include "myWifi.h"
 #include <WiFi.h>
 #include <WebServer.h>
-#include "./header/myVariables.h"
+#include "myVariables.h"
 #include "SPIFFS.h"
 #include <esp_wpa2.h>
 

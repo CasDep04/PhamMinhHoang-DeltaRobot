@@ -3,6 +3,7 @@
 #include "./header/MyEncoder.h"
 #include "./header/MyPID.h"
 #include "./header/MySerial.h"
+#include "./wifi/myWifi.h"
 
 void setup()
 {
@@ -10,6 +11,8 @@ void setup()
   Init_Encoder();
   Init_PID();
   Init_Serial();
+
+  webApp_init();
 }
 
 void loop()
@@ -18,5 +21,8 @@ void loop()
   Compute_PID(); 
   Run_Motor();
   SerialDataPrint();
-  SerialDataWrite();
+  SerialDataWrite();  
+
+  //web app
+  handleClient();
 }
