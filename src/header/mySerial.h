@@ -27,12 +27,30 @@ void SerialDataPrint()
 
     // For Teleplot
     // Serial.println(Serial_time / 10000);
+    //motor1
      Serial.print(">MOT1_cmd:");
      Serial.println(MOT1_cmd);
      Serial.print(">encoderDegree1:");
      Serial.println(encoderDegree1);
      Serial.print(">setpointMotor1:");
      Serial.println(setpointMotor1);
+    
+    //motor2
+    Serial.print(">MOT2_cmd:");
+     Serial.println(MOT2_cmd);
+     Serial.print(">encoderDegree2:");
+     Serial.println(encoderDegree2);
+     Serial.print(">setpointMotor2:");
+     Serial.println(setpointMotor2);
+
+    //motor3
+    
+    Serial.print(">MOT3_cmd:");
+     Serial.println(MOT3_cmd);
+     Serial.print(">encoderDegree3:");
+     Serial.println(encoderDegree3);
+     Serial.print(">setpointMotor3:");
+     Serial.println(setpointMotor3);
     // Serial.print(">kp:");
     // Serial.println(kp);
     // Serial.print(">ki:");
