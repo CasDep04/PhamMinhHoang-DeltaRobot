@@ -1,3 +1,4 @@
+#include <Arduino.h>
 
 extern int sliderValue;
 extern int joystickX;
@@ -6,6 +7,7 @@ extern double setpointMotor1;
 extern double setpointMotor2; 
 extern double setpointMotor3; 
 
+int lastSliderValue =0;
 void updateMotorPositions(int joystickX, int joystickY, int sliderZ) {
     // Map the joystick and slider inputs to the robot's workspace
     // For simplicity, let's assume sliderZ maps to height, and X, Y to horizontal movement.
@@ -27,8 +29,16 @@ void updateMotorPositions(int joystickX, int joystickY, int sliderZ) {
     float motor2Pos = calculateMotorPosition2(targetX, targetY, height);
     float motor3Pos = calculateMotorPosition3(targetX, targetY, height);
 
+    if(lastSliderValue != sliderValue){
+        int temp = sliderValue - lastSliderValue;
+        int isLeft = 0;
+        if(temp < 0){
+            isLeft = 1;
+            temp = abs(temp);
+        }
+    }
     // Update motor positions
-    if(targetX !=0 || targetY ==0){
+    if(targetX !=0 || targetY !=0){
         
     }
 }
