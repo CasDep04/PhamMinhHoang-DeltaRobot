@@ -1,7 +1,6 @@
 #include "myWifi.h"
 #include <WiFi.h>
 #include <WebServer.h>
-#include "myVariables.h"
 #include "SPIFFS.h"
 #include <esp_wpa2.h>
 
@@ -9,6 +8,11 @@ String identity;
 String ssid;
 String password;
 WebServer server(80);
+
+int sliderValue = 0;  // Default value for the slider
+
+int joystickX = 0;
+int joystickY = 0;
 
 void readConfig()
 {
@@ -215,11 +219,13 @@ void handleJoystick() {
         Serial.println(joystickY);
     }
     server.send(200, "text/plain", "Joystick values updated");
+
+    
 }
 
 void handleSlider() {
     if (server.hasArg("value")) {
-        int sliderValue = server.arg("value").toInt();  // Update slider value
+        sliderValue = server.arg("value").toInt();  // Update slider value
         Serial.print("Slider Value: ");
         Serial.println(sliderValue);
     }

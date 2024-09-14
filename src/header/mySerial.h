@@ -1,7 +1,10 @@
 #include <Arduino.h>
 
 unsigned long Serial_time = 0; // time in us
-extern double setpointMotor1 ;
+extern int sliderValue;
+extern int joystickX;
+extern int joystickY;
+
 // ====================================================================================
 void Init_Serial()
 {
@@ -51,46 +54,23 @@ void SerialDataPrint()
      Serial.println(encoderDegree3);
      Serial.print(">setpointMotor3:");
      Serial.println(setpointMotor3);
+
+    //slider
+    Serial.print(">Slider:");
+    Serial.println(sliderValue);
+
+    //joystick
+    Serial.print(">JoystickX:");
+    Serial.println(joystickX);
+    
+    Serial.print(">JoystickY:");
+    Serial.println(joystickY);
+
     // Serial.print(">kp:");
     // Serial.println(kp);
     // Serial.print(">ki:");
     // Serial.println(ki);
     // Serial.print(">kd:");
     // Serial.println(kd);
-  }
-}
-// ====================================================================================
-void SerialDataWrite()
-{
-  static String received_chars;
-  while (Serial.available())
-  {
-    char inChar = (char)Serial.read();
-    received_chars += inChar;
-    if (inChar == '\n')
-    {
-      switch (received_chars[0])
-      {
-      case 'a':
-        received_chars.remove(0, 1);
-        setpointMotor1 = received_chars.toFloat();
-        break;
-      case 'q':
-        received_chars.remove(0, 1);
-        kp = received_chars.toFloat();
-        break;
-      case 'w':
-        received_chars.remove(0, 1);
-        ki = received_chars.toFloat();
-        break;
-      case 'e':
-        received_chars.remove(0, 1);
-        kd = received_chars.toFloat();
-        break;
-      default:
-        break;
-      }
-      received_chars = "";
-    }
   }
 }

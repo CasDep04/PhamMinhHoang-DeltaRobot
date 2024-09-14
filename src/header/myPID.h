@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include <PID_v1.h>
 
-double setpointMotor1 = 350; 
-double setpointMotor2 = 350; 
-double setpointMotor3 = 350; 
+double setpointMotor1 = 0; 
+double setpointMotor2 = 0; 
+double setpointMotor3 = 0; 
 //double kp = 10.0, ki = 5.0, kd = 0.05;
 double kp = 10, ki = 5.0, kd = 0.05;
 

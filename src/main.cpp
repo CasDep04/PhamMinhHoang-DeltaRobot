@@ -20,8 +20,7 @@ void loop()
   Get_Angle();
   Compute_PID(); 
   Run_Motor();
-  SerialDataPrint();
-  SerialDataWrite();  
+  SerialDataPrint();  
 
   //web app
   handleClient();
