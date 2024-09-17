@@ -12,7 +12,7 @@ void setup()
   Init_PID();
   Init_Serial();
 
-  webApp_init();
+  //webApp_init();
 }
 
 void loop()
@@ -23,5 +23,6 @@ void loop()
   SerialDataPrint();  
 
   //web app
-  handleClient();
+  //handleClient();
+
 }
