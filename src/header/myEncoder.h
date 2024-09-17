@@ -4,11 +4,11 @@
 #define ENC1_A 4    // green wire
 #define ENC1_B 16   // yellow wire 
 
-#define ENC2_A 22    //green wire
-#define ENC2_B 23   // yellow wire 
+#define ENC2_A 19    //green wire
+#define ENC2_B 21   // yellow wire 
 
-#define ENC3_A 27    // green wire
-#define ENC3_B 32   // yellow wire 
+#define ENC3_A 12    // green wire
+#define ENC3_B 11   // yellow wire 
 #define ENC_RES 330 // Encoder resolution*Gearbox ratio: 11*30
 
 volatile long int encoderCount1 = 0; // Volatile as it changed during interrupt

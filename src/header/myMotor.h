@@ -5,14 +5,14 @@
 
 #define MOT1_Channel 0 // MOT 1 channel
 
-#define MOT2_A 21 // MOT 2A RPWm
-#define MOT2_B 19 // MOT 2B LPWM
+#define MOT2_A 23 // MOT 2A RPWm
+#define MOT2_B 22 // MOT 2B LPWM
 
 #define MOT2_Channel 1 // MOT 2 channel
 
 
-#define MOT3_A 26 // MOT 3A RPWm
-#define MOT3_B 25 // MOT 3B LPWM
+#define MOT3_A 9 // MOT 3A RPWm
+#define MOT3_B 10 // MOT 3B LPWM
 
 #define MOT3_Channel 2 // MOT 3 channel
 
