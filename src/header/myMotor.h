@@ -19,9 +19,9 @@
 #define PWM_FREQ 10000 // PWM Frequency: 10kHz
 #define PWM_RES 8      // PWM resolution 255
 
-double MOT1_cmd = 25; // MOT1 command [-255; 255]
-double MOT2_cmd = 25; // MOT2 command
-double MOT3_cmd = 25; // MOT3 command
+double MOT1_cmd = 0; // MOT1 command [-255; 255]
+double MOT2_cmd = 0; // MOT2 command
+double MOT3_cmd = 0; // MOT3 command
 //============================================================
 void Init_Motor()
 {
