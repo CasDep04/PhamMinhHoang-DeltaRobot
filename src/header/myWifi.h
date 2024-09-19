@@ -10,6 +10,10 @@ extern String ssid;
 extern String password;
 extern WebServer server;
 
+extern int sliderValue;
+extern int joystickX;
+extern int joystickY;
+
 void readConfig();
 void webApp_init();
 
