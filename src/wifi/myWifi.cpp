@@ -175,8 +175,8 @@ void handleRoot() {
     html += "<div class='header'>ESP32 Controls</div>";  // ESP32 Controls header
     html += "<div class='slider-container'>";
     html += "<p>Adjustable Slider</p>";
-    html += "<input type='range' min='0' max='100' value='50' id='slider' oninput='updateSliderValue(this.value)'/>";
-    html += "<p>Slider Value: <span id='sliderValue'>50</span></p>";
+    html += "<input type='range' min='0' max='100' value='0' id='slider' oninput='updateSliderValue(this.value)'/>";
+    html += "<p>Slider Value: <span id='sliderValue'>0</span></p>";
     html += "</div>";
     html += "<div class='joystick-container'>";
     html += "<div id='joy1Div' style='width:200px;height:200px;margin:50px'></div>";

@@ -4,6 +4,7 @@
 #include "./header/MyPID.h"
 #include "./header/MySerial.h"
 #include "./wifi/myWifi.h"
+#include "./controller/controlMotor.h"
 
 void setup()
 {
@@ -12,7 +13,7 @@ void setup()
   Init_PID();
   Init_Serial();
 
-  //webApp_init();
+  webApp_init();
 }
 
 void loop()
@@ -22,7 +23,9 @@ void loop()
   Run_Motor();
   SerialDataPrint();  
 
+  updateMotorPositions();
+
   //web app
-  //handleClient();
+  handleClient();
 
 }
