@@ -2,9 +2,13 @@
 #include <Arduino.h>
 
 // Define PID constants
-float Kp = 1.0;  // Proportional gain
+//float Kp = 1.0;  // Proportional gain
+//float Ki = 0.1;  // Integral gain
+//float Kd = 0.05; // Derivative gain
+
+float Kp = 0.7;  // Proportional gain
 float Ki = 0.1;  // Integral gain
-float Kd = 0.05; // Derivative gain
+float Kd = 0.1; // Derivative gain
 
 // Define PID variables
 //motor1
